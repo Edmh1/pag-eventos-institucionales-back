@@ -1,24 +1,24 @@
 package com.zapaticosCorp.PagEventos.usuario.dto;
 
 public class LoginRequestDto {
-    private String correo;
+    private String email;
     private String contrasena;
 
     public LoginRequestDto(){
 
     }
 
-    public LoginRequestDto(String correo, String contrasena) {
-        this.correo = correo;
+    public LoginRequestDto(String email, String contrasena) {
+        this.email = email;
         this.contrasena = contrasena;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getContrasena() {

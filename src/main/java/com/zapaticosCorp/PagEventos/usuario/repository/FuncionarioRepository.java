@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Usuario> {
 
-    Funcionario findByIdUsuarioFuncionario(Usuario user);
+    Funcionario findByIdUsuarioFuncionario(Integer idUserFuncionario);
 }

@@ -3,17 +3,27 @@ package com.zapaticosCorp.PagEventos.usuario.dto;
 public class LoginResponseDto {
 
     private boolean success;
-    private String message;
+    private String info;
     private boolean isAdmin;
+    private String tipoUsuario;
+    private String nombreUsuario;
 
     public LoginResponseDto(){
 
     }
 
-    public LoginResponseDto(boolean success, String message, boolean isAdmin) {
+    public LoginResponseDto(boolean success, String info, boolean isAdmin) {
         this.success = success;
-        this.message = message;
+        this.info = info;
         this.isAdmin = isAdmin;
+    }
+
+    public LoginResponseDto(boolean success, String info, boolean isAdmin, String tipoUsuario, String nombreUsuario) {
+        this.success = success;
+        this.info = info;
+        this.isAdmin = isAdmin;
+        this.tipoUsuario = tipoUsuario;
+        this.nombreUsuario = nombreUsuario;
     }
 
     public boolean isSuccess() {
@@ -24,12 +34,12 @@ public class LoginResponseDto {
         this.success = success;
     }
 
-    public String getMessage() {
-        return message;
+    public String getInfo() {
+        return info;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public boolean isAdmin() {
@@ -38,5 +48,21 @@ public class LoginResponseDto {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 }

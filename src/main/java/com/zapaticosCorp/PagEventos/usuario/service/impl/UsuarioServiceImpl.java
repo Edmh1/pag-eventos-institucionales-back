@@ -126,7 +126,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (!"Funcionario".equalsIgnoreCase(tipoUsuario)) {
             return false;
         }
-        Funcionario funcionario = funcionarioRepository.findByIdUsuarioFuncionario(usuario);
+        Funcionario funcionario = funcionarioRepository.findByIdUsuarioFuncionario(usuario.getIdUsuario());
         if(funcionario == null){
             return false;
         }
@@ -141,10 +141,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public LoginResponseDto login(LoginRequestDto request) {
-        if(request.getCorreo() == null || request.getCorreo().trim().isEmpty()){
+        if(request.getEmail() == null || request.getEmail().trim().isEmpty()){
             return new LoginResponseDto(false, "Ingrese un Correo", false);
         }
-        Usuario usuario = buscarPorCorreo(request.getCorreo());
+        Usuario usuario = buscarPorCorreo(request.getEmail());
         if (usuario == null) {
             return new LoginResponseDto(false, "Usuario no encontrado", false);
         }
@@ -154,7 +154,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         boolean isAdmin = isAdmin(usuario);
-        return new LoginResponseDto(true, "Inicio de sesión exitoso", isAdmin);
+        return new LoginResponseDto(true, "Inicio de sesión exitoso", isAdmin, usuario.getIdTipoUsuario().getNombreTipoUsuario(), usuario.getNombreUsuario());
     }
 
 

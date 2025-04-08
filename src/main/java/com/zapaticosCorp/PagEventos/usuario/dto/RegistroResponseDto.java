@@ -3,15 +3,15 @@ package com.zapaticosCorp.PagEventos.usuario.dto;
 public class RegistroResponseDto {
 
     private boolean success;
-    private String message;
+    private String info;
 
     public RegistroResponseDto(){
 
     }
 
-    public RegistroResponseDto(boolean success, String message) {
+    public RegistroResponseDto(boolean success, String info) {
         this.success = success;
-        this.message = message;
+        this.info = info;
     }
 
     public boolean isSuccess() {
@@ -22,11 +22,11 @@ public class RegistroResponseDto {
         this.success = success;
     }
 
-    public String getMessage() {
-        return message;
+    public String getInfo() {
+        return info;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setInfo(String info) {
+        this.info = info;
     }
 }
