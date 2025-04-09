@@ -5,6 +5,7 @@ import com.zapaticosCorp.PagEventos.usuario.model.*;
 import com.zapaticosCorp.PagEventos.usuario.repository.*;
 import com.zapaticosCorp.PagEventos.usuario.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -30,6 +31,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private EstudianteRepository estudianteRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
 
 
     public RegistroResponseDto existUsuario(RegistroUsuarioDto dto) {
@@ -67,7 +72,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 dto.getApellido(),
                 dto.getCodigo(),
                 dto.getEmail(),
-                dto.getContrasena(),
+                passwordEncoder.encode(dto.getContrasena()),
                 tipoUsuario
         );
         usuarioRepository.save(nuevoUsuario);
@@ -100,7 +105,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 dto.getApellido(),
                 dto.getCodigo(),
                 dto.getEmail(),
-                dto.getContrasena(),
+                passwordEncoder.encode(dto.getContrasena()),
                 tipoUsuario
         );
         usuarioRepository.save(usuario);
@@ -149,7 +154,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             return new LoginResponseDto(false, "Usuario no encontrado", false);
         }
 
-        if (!usuario.getContrasenaUsuario().equals(request.getContrasena())) {
+        if (!passwordEncoder.matches(request.getContrasena(), usuario.getContrasenaUsuario())) {
             return new LoginResponseDto(false, "Contraseña incorrecta", false);
         }
 
