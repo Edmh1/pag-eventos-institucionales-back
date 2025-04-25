@@ -143,6 +143,31 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     }
 
+    @Override
+    public ActualizarConResponseDto actualizarContrasena(ActualizarContRequestDto request) {
+        if(request.getEmail() == null || request.getEmail().trim().isEmpty()) {
+            return new ActualizarConResponseDto(false, "Debe ingresar el correo del usuario.");
+        }
+
+        Usuario usuario = buscarPorCorreo(request.getEmail());
+        if (usuario == null) {
+            return new ActualizarConResponseDto(false, "Usuario no encontrado.");
+        }
+
+        if (!passwordEncoder.matches(request.getContrasenaActual(), usuario.getContrasenaUsuario())) {
+            return new ActualizarConResponseDto(false, "La contraseña actual no es correcta.");
+        }
+
+        if (passwordEncoder.matches(request.getNuevaContrasena(), usuario.getContrasenaUsuario())) {
+            return new ActualizarConResponseDto(false, "La nueva contraseña no puede ser igual a la anterior.");
+        }
+
+        usuario.setContrasenaUsuario(passwordEncoder.encode(request.getNuevaContrasena()));
+        usuarioRepository.save(usuario);
+
+        return new ActualizarConResponseDto(true, "Contraseña actualizada correctamente.");
+    }
+
 
     @Override
     public LoginResponseDto login(LoginRequestDto request) {

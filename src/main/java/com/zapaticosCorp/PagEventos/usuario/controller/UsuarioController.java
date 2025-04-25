@@ -42,4 +42,13 @@ public class UsuarioController {
         HttpStatus status = response.isSuccess() ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(response, status);
     }
+
+    @PutMapping("/actualizar/contrasena")
+    public ResponseEntity<ActualizarConResponseDto> actualizarContrasena(@RequestBody ActualizarContRequestDto dto) {
+        ActualizarConResponseDto response = usuarioService.actualizarContrasena(dto);
+        HttpStatus status = response.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(response, status);
+    }
+
+
 }

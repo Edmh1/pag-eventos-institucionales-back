@@ -12,5 +12,7 @@ public interface UsuarioService {
     LoginResponseDto login(LoginRequestDto request);
     boolean isAdmin(Usuario usuario);
 
+    ActualizarConResponseDto actualizarContrasena(ActualizarContRequestDto request);
+
 
 }
