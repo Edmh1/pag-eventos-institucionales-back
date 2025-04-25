@@ -28,6 +28,9 @@ public class Usuario {
     @JoinColumn(name = "id_tipo_usuario", nullable = false)
     private TipoUsuario idTipoUsuario;
 
+    @Column
+    private String rutaImg;
+
     public Usuario(){
 
     }
@@ -95,5 +98,13 @@ public class Usuario {
 
     public void setIdTipoUsuario(TipoUsuario idTipoUsuario) {
         this.idTipoUsuario = idTipoUsuario;
+    }
+
+    public String getRutaImg() {
+        return rutaImg;
+    }
+
+    public void setRutaImg(String rutaImg) {
+        this.rutaImg = rutaImg;
     }
 }

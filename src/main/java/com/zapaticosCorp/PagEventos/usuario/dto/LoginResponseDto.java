@@ -7,6 +7,7 @@ public class LoginResponseDto {
     private boolean isAdmin;
     private String tipoUsuario;
     private String nombreUsuario;
+    private String rutaImg;
 
     public LoginResponseDto(){
 
@@ -18,12 +19,13 @@ public class LoginResponseDto {
         this.isAdmin = isAdmin;
     }
 
-    public LoginResponseDto(boolean success, String info, boolean isAdmin, String tipoUsuario, String nombreUsuario) {
+    public LoginResponseDto(boolean success, String info, boolean isAdmin, String tipoUsuario, String nombreUsuario, String rutaImg) {
         this.success = success;
         this.info = info;
         this.isAdmin = isAdmin;
         this.tipoUsuario = tipoUsuario;
         this.nombreUsuario = nombreUsuario;
+        this.rutaImg = rutaImg;
     }
 
     public boolean isSuccess() {
@@ -64,5 +66,13 @@ public class LoginResponseDto {
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getRutaImg() {
+        return rutaImg;
+    }
+
+    public void setRutaImg(String rutaImg) {
+        this.rutaImg = rutaImg;
     }
 }
