@@ -1,14 +1,26 @@
-# Utiliza una imagen base de OpenJDK
-FROM openjdk:17-jdk-slim
+# Usar una imagen base de Maven
+FROM maven:3.8.4-openjdk-17-slim AS builder
 
-# Establece el directorio de trabajo dentro del contenedor
+# Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia el archivo JAR al contenedor
-COPY target/pag-eventos-institucionales-back-0.0.1-SNAPSHOT.jar /app/pag-eventos-institucionales-back-0.0.1-SNAPSHOT.jar
+# Copiar el código fuente al contenedor
+COPY . /app
 
-# Expone el puerto en el que la aplicación escuchará (ajusta si tu aplicación usa otro puerto)
+# Compilar el proyecto y generar el archivo JAR
+RUN mvn clean package -DskipTests
+
+# Usar una imagen base de OpenJDK para ejecutar la aplicación
+FROM openjdk:17-jdk-slim
+
+# Establecer el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copiar el archivo JAR del contenedor builder al contenedor final
+COPY --from=builder /app/target/pag-eventos-institucionales-back-0.0.1-SNAPSHOT.jar /app/pag-eventos-institucionales-back-0.0.1-SNAPSHOT.jar
+
+# Exponer el puerto 8080
 EXPOSE 8080
 
-# Comando para ejecutar la aplicación JAR
+# Ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "/app/pag-eventos-institucionales-back-0.0.1-SNAPSHOT.jar"]
