@@ -159,7 +159,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         boolean isAdmin = isAdmin(usuario);
-        return new LoginResponseDto(true, "Inicio de sesión exitoso", isAdmin, usuario.getIdTipoUsuario().getNombreTipoUsuario(), usuario.getNombreUsuario(), usuario.getRutaImg());
+        return new LoginResponseDto(true, "Inicio de sesión exitoso", isAdmin, usuario.getIdTipoUsuario().getNombreTipoUsuario(), usuario.getNombreUsuario(), usuario.getEmailUsuario() ,usuario.getRutaImg());
     }
 
 
