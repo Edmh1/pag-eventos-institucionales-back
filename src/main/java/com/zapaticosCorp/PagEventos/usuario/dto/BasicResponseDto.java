@@ -1,11 +1,15 @@
 package com.zapaticosCorp.PagEventos.usuario.dto;
 
-public class ActualizarConResponseDto {
+public class BasicResponseDto {
 
     private boolean success;
     private String info;
 
-    public ActualizarConResponseDto(boolean success, String info) {
+    public BasicResponseDto(){
+
+    }
+
+    public BasicResponseDto(boolean success, String info) {
         this.success = success;
         this.info = info;
     }

@@ -30,22 +30,22 @@ public class UsuarioController {
 
 
     @PostMapping("/registro/funcionario")
-    public ResponseEntity<RegistroResponseDto> registrarFuncionario(@RequestBody RegistroFuncionarioDto dto) {
-        RegistroResponseDto response = usuarioService.registrarFuncionario(dto);
+    public ResponseEntity<BasicResponseDto> registrarFuncionario(@RequestBody RegistroFuncionarioDto dto) {
+        BasicResponseDto response = usuarioService.registrarFuncionario(dto);
         HttpStatus status = response.isSuccess() ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(response, status);
     }
 
     @PostMapping("/registro/estudiante")
-    public ResponseEntity<RegistroResponseDto> registrarEstudiante(@RequestBody RegistroEstudianteDto dto) {
-        RegistroResponseDto response = usuarioService.registrarEstudiante(dto);
+    public ResponseEntity<BasicResponseDto> registrarEstudiante(@RequestBody RegistroEstudianteDto dto) {
+        BasicResponseDto response = usuarioService.registrarEstudiante(dto);
         HttpStatus status = response.isSuccess() ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(response, status);
     }
 
     @PutMapping("/actualizar/contrasena")
-    public ResponseEntity<ActualizarConResponseDto> actualizarContrasena(@RequestBody ActualizarContRequestDto dto) {
-        ActualizarConResponseDto response = usuarioService.actualizarContrasena(dto);
+    public ResponseEntity<BasicResponseDto> actualizarContrasena(@RequestBody ActualizarContRequestDto dto) {
+        BasicResponseDto response = usuarioService.actualizarContrasena(dto);
         HttpStatus status = response.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(response, status);
     }

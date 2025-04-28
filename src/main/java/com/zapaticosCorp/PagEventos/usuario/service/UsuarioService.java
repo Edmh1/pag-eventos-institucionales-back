@@ -5,14 +5,13 @@ import com.zapaticosCorp.PagEventos.usuario.model.Usuario;
 
 public interface UsuarioService {
 
-    RegistroResponseDto registrarFuncionario(RegistroFuncionarioDto request);
-    RegistroResponseDto registrarEstudiante(RegistroEstudianteDto request);
+    BasicResponseDto registrarFuncionario(RegistroFuncionarioDto request);
+    BasicResponseDto registrarEstudiante(RegistroEstudianteDto request);
+    BasicResponseDto actualizarContrasena(ActualizarContRequestDto request);
 
     Usuario buscarPorCorreo(String correo);
     LoginResponseDto login(LoginRequestDto request);
     boolean isAdmin(Usuario usuario);
-
-    ActualizarConResponseDto actualizarContrasena(ActualizarContRequestDto request);
 
 
 }

@@ -3,12 +3,12 @@ package com.zapaticosCorp.PagEventos.usuario.dto;
 public class ActualizarContRequestDto {
     private String email;
     private String contrasenaActual;
-    private String nuevaContrasena;
+    private String ContrasenaNueva;
 
-    public ActualizarContRequestDto(String email, String contrasenaActual, String nuevaContrasena) {
+    public ActualizarContRequestDto(String email, String contrasenaActual, String contrasenaNueva) {
         this.email = email;
         this.contrasenaActual = contrasenaActual;
-        this.nuevaContrasena = nuevaContrasena;
+        ContrasenaNueva = contrasenaNueva;
     }
 
     public String getEmail() {
@@ -27,11 +27,11 @@ public class ActualizarContRequestDto {
         this.contrasenaActual = contrasenaActual;
     }
 
-    public String getNuevaContrasena() {
-        return nuevaContrasena;
+    public String getContrasenaNueva() {
+        return ContrasenaNueva;
     }
 
-    public void setNuevaContrasena(String nuevaContrasena) {
-        this.nuevaContrasena = nuevaContrasena;
+    public void setContrasenaNueva(String contrasenaNueva) {
+        ContrasenaNueva = contrasenaNueva;
     }
 }
