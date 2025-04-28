@@ -2,11 +2,14 @@ package com.zapaticosCorp.PagEventos.usuario.controller;
 
 
 import com.zapaticosCorp.PagEventos.usuario.dto.*;
+import com.zapaticosCorp.PagEventos.usuario.model.Programa;
 import com.zapaticosCorp.PagEventos.usuario.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -49,6 +52,5 @@ public class UsuarioController {
         HttpStatus status = response.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(response, status);
     }
-
 
 }

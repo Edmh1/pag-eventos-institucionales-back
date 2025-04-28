@@ -2,18 +2,18 @@ package com.zapaticosCorp.PagEventos.usuario.dto;
 
 public class RegistroFuncionarioDto extends  RegistroUsuarioDto{
 
-    private String cargo;
+    private Integer idCargo;
 
-    public RegistroFuncionarioDto(String nombre, String apellido, Integer codigo, String email, String contrasena, String tipo, String cargo) {
+    public RegistroFuncionarioDto(String nombre, String apellido, Integer codigo, String email, String contrasena, String tipo, Integer idCargo) {
         super(nombre, apellido, codigo, email, contrasena, tipo);
-        this.cargo = cargo;
+        this.idCargo = idCargo;
     }
 
-    public String getCargo() {
-        return cargo;
+    public Integer getIdCargo() {
+        return idCargo;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setIdCargo(Integer idCargo) {
+        this.idCargo = idCargo;
     }
 }

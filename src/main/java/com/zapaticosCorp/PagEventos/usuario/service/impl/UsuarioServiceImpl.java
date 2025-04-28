@@ -36,7 +36,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     private BCryptPasswordEncoder passwordEncoder;
 
 
-
     public BasicResponseDto existUsuario(RegistroUsuarioDto dto) {
         if (usuarioRepository.existsByEmailUsuario(dto.getEmail())) {
             return new BasicResponseDto(false, "Ya existe un usuario con ese correo.");
@@ -61,8 +60,8 @@ public class UsuarioServiceImpl implements UsuarioService {
             return new BasicResponseDto(false, "Tipo de usuario no válido.");
         }
 
-        Cargo cargo = cargoRepository.findByNombreCargoIgnoreCase(dto.getCargo());
-        if (cargo == null) {
+        Optional<Cargo> cargo = cargoRepository.findById(dto.getIdCargo());
+        if (cargo.isEmpty()) {
             return new BasicResponseDto(false, "Cargo no encontrado.");
         }
 
@@ -77,7 +76,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         );
         usuarioRepository.save(nuevoUsuario);
 
-        Funcionario funcionario = new Funcionario(nuevoUsuario, cargo);
+        Funcionario funcionario = new Funcionario(nuevoUsuario, cargo.orElse(null));
         funcionarioRepository.save(funcionario);
 
         return new BasicResponseDto(true, "Funcionario registrado correctamente.");
@@ -95,8 +94,8 @@ public class UsuarioServiceImpl implements UsuarioService {
             return new BasicResponseDto(false, "Tipo de usuario no válido.");
         }
 
-        Programa programa = programaRepository.findByNombreProgramaIgnoreCase(dto.getPrograma());
-        if (programa == null) {
+        Optional<Programa> programa = programaRepository.findById(dto.getIdPrograma());
+        if (programa.isEmpty()) {
             return new BasicResponseDto(false, "Programa no encontrado.");
         }
 
@@ -111,7 +110,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuarioRepository.save(usuario);
 
 
-        Estudiante estudiante = new Estudiante(usuario, programa);
+        Estudiante estudiante = new Estudiante(usuario, programa.orElse(null));
         estudianteRepository.save(estudiante);
 
 
