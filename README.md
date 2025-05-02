@@ -31,12 +31,19 @@ Este proyecto es el backend de una aplicación web para la gestión de eventos i
 ## 🗂️ Estructura del proyecto
 
 El backend sigue una arquitectura basada en MVC organizada por dominio y servicio:
-src/
+<br>
+src/nombre_servicio
+<br>
 ├── controller/ # Controladores REST
+<br>
 ├── service/ # Lógica de negocio
+<br>
 ├── model/ # Entidades JPA
+<br>
 ├── repository/ # Interfaces JPA
+<br>
 ├── dto/ # Clases de transferencia de datos
+<br>
 └── config/ # Configuraciones (CORS, Swagger, seguridad, etc.)
  
 ## 📘 Documentación API
