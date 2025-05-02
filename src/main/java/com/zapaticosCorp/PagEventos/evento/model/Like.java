@@ -1,4 +1,4 @@
-package com.zapaticosCorp.PagEventos.evento;
+package com.zapaticosCorp.PagEventos.evento.model;
 
 import com.zapaticosCorp.PagEventos.usuario.model.Usuario;
 import jakarta.persistence.*;
