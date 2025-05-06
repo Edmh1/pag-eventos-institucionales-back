@@ -53,4 +53,11 @@ public class UsuarioController {
         return new ResponseEntity<>(response, status);
     }
 
+    @DeleteMapping("/eliminar/{idUsuario}")
+    public ResponseEntity<BasicResponseDto> eliminarUsuario(@PathVariable Integer idUsuario){
+        BasicResponseDto response = usuarioService.eliminarUsuario(idUsuario);
+        HttpStatus status = response.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(response, status);
+    }
+
 }

@@ -13,7 +13,7 @@ public class Usuario {
     private String nombreUsuario;
 
     @Column
-    private  String apellidoUsuario;
+    private String apellidoUsuario;
 
     @Column(nullable = false)
     private Integer codigoUsuario;
@@ -31,17 +31,29 @@ public class Usuario {
     @Column
     private String rutaImg;
 
+    @Column(nullable = false)
+    private Boolean activo;
+
     public Usuario(){
 
     }
 
-    public Usuario(String nombreUsuario, String apellidoUsuario, Integer codigoUsuario, String emailUsuario, String contrasenaUsuario, TipoUsuario idTipoUsuario) {
+    public Usuario(String nombreUsuario, String apellidoUsuario, Integer codigoUsuario, String emailUsuario, String contrasenaUsuario, TipoUsuario idTipoUsuario, Boolean activo) {
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
         this.codigoUsuario = codigoUsuario;
         this.emailUsuario = emailUsuario;
         this.contrasenaUsuario = contrasenaUsuario;
         this.idTipoUsuario = idTipoUsuario;
+        this.activo = activo;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
     public Integer getIdUsuario() {

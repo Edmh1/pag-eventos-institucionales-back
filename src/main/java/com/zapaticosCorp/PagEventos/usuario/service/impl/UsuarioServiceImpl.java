@@ -1,5 +1,7 @@
 package com.zapaticosCorp.PagEventos.usuario.service.impl;
 
+import com.zapaticosCorp.PagEventos.email.dto.EmailDto;
+import com.zapaticosCorp.PagEventos.email.service.EmailService;
 import com.zapaticosCorp.PagEventos.usuario.dto.*;
 import com.zapaticosCorp.PagEventos.usuario.model.*;
 import com.zapaticosCorp.PagEventos.usuario.repository.*;
@@ -35,14 +37,19 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EmailService email;
+
 
     public BasicResponseDto existUsuario(RegistroUsuarioDto dto) {
-        if (usuarioRepository.existsByEmailUsuario(dto.getEmail())) {
-            return new BasicResponseDto(false, "Ya existe un usuario con ese correo.");
+        if (usuarioRepository.existsByEmailUsuarioAndActivoTrue(dto.getEmail())) {
+            return new BasicResponseDto(false, "Ya existe un usuario activo con ese correo.");
         }
-        if (usuarioRepository.existsByCodigoUsuario(dto.getCodigo())) {
-            return new BasicResponseDto(false, "Ya existe un usuario con ese código.");
+
+        if (usuarioRepository.existsByCodigoUsuarioAndActivoTrue(dto.getCodigo())) {
+            return new BasicResponseDto(false, "Ya existe un usuario activo con ese código.");
         }
+
         return null; // No hay conflicto, todo fino
     }
 
@@ -72,7 +79,8 @@ public class UsuarioServiceImpl implements UsuarioService {
                 dto.getCodigo(),
                 dto.getEmail(),
                 passwordEncoder.encode(dto.getContrasena()),
-                tipoUsuario
+                tipoUsuario,
+                true
         );
         usuarioRepository.save(nuevoUsuario);
 
@@ -105,7 +113,8 @@ public class UsuarioServiceImpl implements UsuarioService {
                 dto.getCodigo(),
                 dto.getEmail(),
                 passwordEncoder.encode(dto.getContrasena()),
-                tipoUsuario
+                tipoUsuario,
+                true
         );
         usuarioRepository.save(usuario);
 
@@ -120,7 +129,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario buscarPorCorreo(String correo) {
-        Optional<Usuario> optUser = usuarioRepository.findByEmailUsuario(correo);
+        Optional<Usuario> optUser = usuarioRepository.findByEmailUsuarioAndActivoTrue(correo);
         return optUser.orElse(null);
     }
 
@@ -167,6 +176,27 @@ public class UsuarioServiceImpl implements UsuarioService {
         return new BasicResponseDto(true, "Contraseña actualizada correctamente.");
     }
 
+    @Override
+    public BasicResponseDto eliminarUsuario(Integer idUsuario) {
+        if (idUsuario == null) {
+            return new BasicResponseDto(false, "idUsuario no válido");
+        }
+
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(idUsuario);
+
+        if (usuarioOpt.isEmpty()) {
+            return new BasicResponseDto(false, "Usuario no encontrado en el sistema");
+        }
+
+        Usuario usuario = usuarioOpt.get(); // Obtener el objeto real
+        usuario.setActivo(false);
+        usuarioRepository.save(usuario);
+
+        email.sendEmail(new EmailDto(usuario.getEmailUsuario())); // Enviar correo al usuario eliminado
+        return new BasicResponseDto(true, "El usuario ha sido eliminado correctamente");
+    }
+
+
 
     @Override
     public LoginResponseDto login(LoginRequestDto request) {
@@ -174,7 +204,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             return new LoginResponseDto(false, "Ingrese un Correo", false);
         }
         Usuario usuario = buscarPorCorreo(request.getEmail());
-        if (usuario == null) {
+        if (usuario == null || !usuario.getActivo()) {
             return new LoginResponseDto(false, "Usuario no encontrado", false);
         }
 
@@ -183,7 +213,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
 
         boolean isAdmin = isAdmin(usuario);
-        return new LoginResponseDto(true, "Inicio de sesión exitoso", isAdmin, usuario.getIdTipoUsuario().getNombreTipoUsuario(), usuario.getNombreUsuario(), usuario.getEmailUsuario() ,usuario.getRutaImg());
+        return new LoginResponseDto(true, "Inicio de sesión exitoso", isAdmin, usuario.getIdUsuario(), usuario.getIdTipoUsuario().getNombreTipoUsuario(), usuario.getNombreUsuario(), usuario.getEmailUsuario() ,usuario.getRutaImg());
     }
 
 
