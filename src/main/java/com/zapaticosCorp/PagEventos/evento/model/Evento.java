@@ -13,7 +13,7 @@ public class Evento {
     private Integer idEvento;
 
     @ManyToOne
-    @JoinColumn(name = "tipos_eventos", nullable = false)
+    @JoinColumn(name = "id_tipo_evento", nullable = false)
     private TipoEvento idTipoEvento;
 
     @Column(name = "nombre_evento", nullable = false)
@@ -28,14 +28,26 @@ public class Evento {
     @Column(name = "hora_evento")
     private LocalTime horaEvento;
 
+    @Column
+    private String rutaImgEvento;
+
     public Evento(){}
 
-    public Evento(TipoEvento idTipoEvento, String nombreEvento, String lugarEvento, LocalDate fechaEvento, LocalTime horaEvento) {
+    public Evento(TipoEvento idTipoEvento, String nombreEvento, String lugarEvento, LocalDate fechaEvento, LocalTime horaEvento, String rutaImgEvento) {
         this.idTipoEvento = idTipoEvento;
         this.nombreEvento = nombreEvento;
         this.lugarEvento = lugarEvento;
         this.fechaEvento = fechaEvento;
         this.horaEvento = horaEvento;
+        this.rutaImgEvento = rutaImgEvento;
+    }
+
+    public String getRutaImgEvento() {
+        return rutaImgEvento;
+    }
+
+    public void setRutaImgEvento(String rutaImgEvento) {
+        this.rutaImgEvento = rutaImgEvento;
     }
 
     public Integer getIdEvento() {

@@ -2,7 +2,7 @@ package com.zapaticosCorp.PagEventos.evento.model;
 
 import jakarta.persistence.*;
 
-@Entity(name = "tipos_eventos")
+@Entity(name = "tipos_evento")
 public class TipoEvento {
 
     @Id
