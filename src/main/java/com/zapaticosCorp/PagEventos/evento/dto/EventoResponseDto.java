@@ -5,19 +5,28 @@ import java.time.LocalTime;
 
 public class EventoResponseDto {
 
+    private String rutaImgEvento;
     private String nombreEvento;
     private String lugarEvento;
     private LocalDate fechaEvento;
     private LocalTime horaEvento;
 
 
-    public EventoResponseDto(String nombreEvento, String lugarEvento, LocalDate fechaEvento, LocalTime horaEvento) {
+    public EventoResponseDto(String rutaImgEvento, String nombreEvento, String lugarEvento, LocalDate fechaEvento, LocalTime horaEvento) {
+        this.rutaImgEvento = rutaImgEvento;
         this.nombreEvento = nombreEvento;
         this.lugarEvento = lugarEvento;
         this.fechaEvento = fechaEvento;
         this.horaEvento = horaEvento;
     }
 
+    public String getRutaImgEvento() {
+        return rutaImgEvento;
+    }
+
+    public void setRutaImgEvento(String rutaImgEvento) {
+        this.rutaImgEvento = rutaImgEvento;
+    }
 
     public String getNombreEvento() {
         return nombreEvento;

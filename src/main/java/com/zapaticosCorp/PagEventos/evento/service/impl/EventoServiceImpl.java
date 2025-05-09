@@ -33,6 +33,7 @@ public class EventoServiceImpl implements EventoService {
 
     private EventoResponseDto convertirADto(Evento evento) {
         return new EventoResponseDto(
+                evento.getRutaImgEvento(),
                 evento.getNombreEvento(),
                 evento.getLugarEvento(),
                 evento.getFechaEvento(),
