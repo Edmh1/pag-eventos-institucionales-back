@@ -16,4 +16,5 @@ public interface UsuarioService {
     boolean isAdmin(Usuario usuario);
 
 
+    BasicResponseDto actualizarImg(ActualizarImgRequestDto request);
 }

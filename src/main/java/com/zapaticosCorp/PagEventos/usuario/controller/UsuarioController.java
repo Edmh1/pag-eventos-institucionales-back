@@ -53,6 +53,13 @@ public class UsuarioController {
         return new ResponseEntity<>(response, status);
     }
 
+    @PutMapping("/actualizar/img")
+    public ResponseEntity<BasicResponseDto> actualizarImg(@RequestBody ActualizarImgRequestDto dto) {
+        BasicResponseDto response = usuarioService.actualizarImg(dto);
+        HttpStatus status = response.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(response, status);
+    }
+
     @DeleteMapping("/eliminar/{idUsuario}")
     public ResponseEntity<BasicResponseDto> eliminarUsuario(@PathVariable Integer idUsuario){
         BasicResponseDto response = usuarioService.eliminarUsuario(idUsuario);

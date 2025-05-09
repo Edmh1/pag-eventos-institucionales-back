@@ -152,6 +152,21 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public BasicResponseDto actualizarImg(ActualizarImgRequestDto request) {
+        if(request.getUrl() == null || request.getUrl().trim().isEmpty()){
+            return new BasicResponseDto(false, "Debe agregar una Url.");
+        }
+        Usuario usuario = buscarPorCorreo(request.getEmail());
+        if (usuario == null) {
+            return new BasicResponseDto(false, "Usuario no encontrado.");
+        }
+        usuario.setRutaImg(request.getUrl());
+        usuarioRepository.save(usuario);
+        return new BasicResponseDto(true, "La Imgen fue actualizada correctamente.");
+
+    }
+
+    @Override
     public BasicResponseDto actualizarContrasena(ActualizarContRequestDto request) {
         if(request.getEmail() == null || request.getEmail().trim().isEmpty()) {
             return new BasicResponseDto(false, "Debe ingresar el correo del usuario.");
