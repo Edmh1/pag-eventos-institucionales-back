@@ -56,22 +56,21 @@ public class EventoServiceImpl implements EventoService {
 
     @Override
     public Page<EventoResponseDto> paginarEventosPorUsuario(Integer pagina, Integer nElementos, Integer idUsuario) {
-
-        List<Evento> eventos = eventoRepository.findAll();
-
         Pageable pageable = PageRequest.of(pagina - 1, nElementos);
-
         // Obtener todos los eventos activos
-        Page<Evento> eventosPage = eventoRepository.findAllByActivoTrue(pageable);
-
+        List<Evento> eventos = eventoRepository.findAllByActivoTrue();
         // Filtrar los eventos que pertenezcan al usuario
-        List<EventoResponseDto> eventosFiltrados = eventosPage.getContent().stream()
+        List<EventoResponseDto> eventosFiltrados = eventos.stream()
                 .filter(evento -> organizadorPorEventoRepository.existsByIdEventoOrgEve_IdEventoAndIdUsuarioOrgEve_IdUsuario(evento.getIdEvento(), idUsuario))
                 .map(this::convertirADto)
                 .toList();
-
+        // Calcular el inicio y el fin de la sublista para la paginación
+        int start = Math.toIntExact(pageable.getOffset());
+        int end = Math.min((start + pageable.getPageSize()), eventosFiltrados.size());
+        // Crear la sublista para la página actual
+        List<EventoResponseDto> eventosPaginados = eventosFiltrados.subList(start, end);
         // Convertir la lista filtrada en un Page
-        return new PageImpl<>(eventosFiltrados, pageable, eventosFiltrados.size());
+        return new PageImpl<>(eventosPaginados, pageable, eventosFiltrados.size());
     }
 
 

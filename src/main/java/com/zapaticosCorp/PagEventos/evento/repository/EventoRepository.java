@@ -22,4 +22,6 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
     List<Evento> findByLugarEventoAndFechaEvento(String lugarEvento, LocalDate fechaEvento);
 
     Page<Evento> findAllByActivoTrue(Pageable pageable);
+    List<Evento> findAllByActivoTrue();
+
 }
