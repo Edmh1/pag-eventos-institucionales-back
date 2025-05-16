@@ -20,6 +20,11 @@ public class EventoController {
     @Autowired
     EventoService eventoService;
 
+    @GetMapping("/status")
+    public ResponseEntity<String> getStatus() {
+        return ResponseEntity.ok("OK");
+    }
+
     @GetMapping("/contar")
     public ResponseEntity<EventoCantResponseDto> contarEventos(){
         EventoCantResponseDto response = eventoService.cantEventos();
