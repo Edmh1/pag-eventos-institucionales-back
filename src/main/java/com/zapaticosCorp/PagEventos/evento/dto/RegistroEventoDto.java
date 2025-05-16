@@ -1,42 +1,19 @@
-package com.zapaticosCorp.PagEventos.evento.model;
-
-import jakarta.persistence.*;
+package com.zapaticosCorp.PagEventos.evento.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Entity(name = "eventos")
-public class Evento {
+public class RegistroEventoDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idEvento;
-
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_evento", nullable = false)
-    private TipoEvento idTipoEvento;
-
-    @Column(name = "nombre_evento", nullable = false)
+    private Integer idTipoEvento;
     private String nombreEvento;
-
-    @Column(name = "lugar_evento")
     private String lugarEvento;
-
-    @Column(name = "fecha_evento")
     private LocalDate fechaEvento;
-
-    @Column(name = "hora_evento")
     private LocalTime horaEvento;
-
-    @Column
     private LocalTime horaFinEvento;
-
-    @Column
     private String rutaImgEvento;
 
-    public Evento(){}
-
-    public Evento(TipoEvento idTipoEvento, String nombreEvento, String lugarEvento, LocalDate fechaEvento, LocalTime horaEvento, LocalTime horaFinEvento, String rutaImgEvento) {
+    public RegistroEventoDto(Integer idTipoEvento, String nombreEvento, String lugarEvento, LocalDate fechaEvento, LocalTime horaEvento, LocalTime horaFinEvento, String rutaImgEvento) {
         this.idTipoEvento = idTipoEvento;
         this.nombreEvento = nombreEvento;
         this.lugarEvento = lugarEvento;
@@ -46,19 +23,11 @@ public class Evento {
         this.rutaImgEvento = rutaImgEvento;
     }
 
-    public Integer getIdEvento() {
-        return idEvento;
-    }
-
-    public void setIdEvento(Integer idEvento) {
-        this.idEvento = idEvento;
-    }
-
-    public TipoEvento getIdTipoEvento() {
+    public Integer getIdTipoEvento() {
         return idTipoEvento;
     }
 
-    public void setIdTipoEvento(TipoEvento idTipoEvento) {
+    public void setIdTipoEvento(Integer idTipoEvento) {
         this.idTipoEvento = idTipoEvento;
     }
 

@@ -2,7 +2,9 @@ package com.zapaticosCorp.PagEventos.evento.controller;
 
 import com.zapaticosCorp.PagEventos.evento.dto.EventoCantResponseDto;
 import com.zapaticosCorp.PagEventos.evento.dto.EventoResponseDto;
+import com.zapaticosCorp.PagEventos.evento.dto.RegistroEventoDto;
 import com.zapaticosCorp.PagEventos.evento.service.EventoService;
+import com.zapaticosCorp.PagEventos.usuario.dto.BasicResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,13 @@ public class EventoController {
                                                                      @RequestParam("limite") Integer nElementos){
         Page<EventoResponseDto> response = eventoService.paginarEventos(pagina, nElementos);
         HttpStatus status = response != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(response, status);
+    }
+
+    @PostMapping
+    public ResponseEntity<BasicResponseDto> crearEvento(@RequestBody RegistroEventoDto evento){
+        BasicResponseDto response = eventoService.crearEvento(evento);
+        HttpStatus status = response.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(response, status);
     }
 }
