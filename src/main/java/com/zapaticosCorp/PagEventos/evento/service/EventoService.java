@@ -16,4 +16,6 @@ public interface EventoService {
     BasicResponseDto crearEvento(RegistroEventoDto evento);
 
     BasicResponseDto actualizarEvento(ActualizarEventoDto evento);
+
+    Page<EventoResponseDto> paginarEventosPorUsuario(Integer pagina, Integer nElementos, Integer idUsuario);
 }

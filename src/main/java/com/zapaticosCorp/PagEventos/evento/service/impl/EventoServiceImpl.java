@@ -16,6 +16,7 @@ import com.zapaticosCorp.PagEventos.usuario.model.Usuario;
 import com.zapaticosCorp.PagEventos.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,39 @@ public class EventoServiceImpl implements EventoService {
         Page<Evento> eventosPage = eventoRepository.findAllByActivoTrue(pageable);
         return eventosPage.map(this::convertirADto);
     }
+
+    @Override
+    public Page<EventoResponseDto> paginarEventosPorUsuario(Integer pagina, Integer nElementos, Integer idUsuario) {
+
+        List<Evento> eventos = eventoRepository.findAll();
+
+        Pageable pageable = PageRequest.of(pagina - 1, nElementos);
+
+        // Obtener todos los eventos activos
+        Page<Evento> eventosPage = eventoRepository.findAllByActivoTrue(pageable);
+
+        // Filtrar los eventos que pertenezcan al usuario
+        List<EventoResponseDto> eventosFiltrados = eventosPage.getContent().stream()
+                .filter(evento -> organizadorPorEventoRepository.existsByIdEventoOrgEve_IdEventoAndIdUsuarioOrgEve_IdUsuario(evento.getIdEvento(), idUsuario))
+                .map(this::convertirADto)
+                .toList();
+
+        // Convertir la lista filtrada en un Page
+        return new PageImpl<>(eventosFiltrados, pageable, eventosFiltrados.size());
+    }
+
+
+    private EventoResponseDto convertirADto(Evento evento) {
+        return new EventoResponseDto(
+                evento.getIdEvento(),
+                evento.getRutaImgEvento(),
+                evento.getNombreEvento(),
+                evento.getLugarEvento(),
+                evento.getFechaEvento(),
+                evento.getHoraEvento()
+        );
+    }
+
 
     @Override
     public BasicResponseDto crearEvento(RegistroEventoDto dto) {
@@ -146,7 +180,6 @@ public class EventoServiceImpl implements EventoService {
     }
 
 
-
     private Optional<TipoEvento> existTipoEvento(RegistroEventoDto dto) {
         return tipoEventoRepository.findById(dto.getIdTipoEvento());
     }
@@ -156,15 +189,5 @@ public class EventoServiceImpl implements EventoService {
             return new BasicResponseDto(false, "No puede existir un evento que se desarrollo en el mismo espacio y momento.");
         }
         return null;
-    }
-
-    private EventoResponseDto convertirADto(Evento evento) {
-        return new EventoResponseDto(
-                evento.getRutaImgEvento(),
-                evento.getNombreEvento(),
-                evento.getLugarEvento(),
-                evento.getFechaEvento(),
-                evento.getHoraEvento()
-        );
     }
 }

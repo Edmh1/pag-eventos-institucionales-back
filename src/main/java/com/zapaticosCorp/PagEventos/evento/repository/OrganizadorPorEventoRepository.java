@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrganizadorPorEventoRepository extends JpaRepository<OrganizadorPorEvento,Integer> {
 
+    boolean  existsByIdEventoOrgEve_IdEventoAndIdUsuarioOrgEve_IdUsuario(Integer idEvento, Integer idUsuario);
 }

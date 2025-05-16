@@ -41,6 +41,15 @@ public class EventoController {
         return new ResponseEntity<>(response, status);
     }
 
+    @GetMapping("/por-user")
+    public ResponseEntity<Page<EventoResponseDto>> paginacionEventosPorUsuario(@RequestParam("pagina") Integer pagina,
+                                                                     @RequestParam("limite") Integer nElementos,
+                                                                               @RequestParam("idUsuario") Integer idUsuario){
+        Page<EventoResponseDto> response = eventoService.paginarEventosPorUsuario(pagina, nElementos, idUsuario);
+        HttpStatus status = response != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(response, status);
+    }
+
     @PostMapping
     public ResponseEntity<BasicResponseDto> crearEvento(@RequestBody RegistroEventoDto evento){
         BasicResponseDto response = eventoService.crearEvento(evento);
