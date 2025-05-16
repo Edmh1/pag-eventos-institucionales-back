@@ -1,5 +1,6 @@
 package com.zapaticosCorp.PagEventos.evento.controller;
 
+import com.zapaticosCorp.PagEventos.evento.dto.ActualizarEventoDto;
 import com.zapaticosCorp.PagEventos.evento.dto.EventoCantResponseDto;
 import com.zapaticosCorp.PagEventos.evento.dto.EventoResponseDto;
 import com.zapaticosCorp.PagEventos.evento.dto.RegistroEventoDto;
@@ -43,6 +44,13 @@ public class EventoController {
     @PostMapping
     public ResponseEntity<BasicResponseDto> crearEvento(@RequestBody RegistroEventoDto evento){
         BasicResponseDto response = eventoService.crearEvento(evento);
+        HttpStatus status = response.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(response, status);
+    }
+
+    @PatchMapping
+    public ResponseEntity<BasicResponseDto> actualizarEvento(@RequestBody ActualizarEventoDto evento){
+        BasicResponseDto response = eventoService.actualizarEvento(evento);
         HttpStatus status = response.isSuccess() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(response, status);
     }

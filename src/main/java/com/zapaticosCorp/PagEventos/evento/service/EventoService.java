@@ -1,5 +1,6 @@
 package com.zapaticosCorp.PagEventos.evento.service;
 
+import com.zapaticosCorp.PagEventos.evento.dto.ActualizarEventoDto;
 import com.zapaticosCorp.PagEventos.evento.dto.EventoCantResponseDto;
 import com.zapaticosCorp.PagEventos.evento.dto.EventoResponseDto;
 import com.zapaticosCorp.PagEventos.evento.dto.RegistroEventoDto;
@@ -13,4 +14,6 @@ public interface EventoService {
     Page<EventoResponseDto> paginarEventos(Integer pagina, Integer nElementos);
 
     BasicResponseDto crearEvento(RegistroEventoDto evento);
+
+    BasicResponseDto actualizarEvento(ActualizarEventoDto evento);
 }

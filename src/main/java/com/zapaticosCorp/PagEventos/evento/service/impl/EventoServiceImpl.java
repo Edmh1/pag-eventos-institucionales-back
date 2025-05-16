@@ -1,14 +1,19 @@
 package com.zapaticosCorp.PagEventos.evento.service.impl;
 
+import com.zapaticosCorp.PagEventos.evento.dto.ActualizarEventoDto;
 import com.zapaticosCorp.PagEventos.evento.dto.EventoCantResponseDto;
 import com.zapaticosCorp.PagEventos.evento.dto.EventoResponseDto;
 import com.zapaticosCorp.PagEventos.evento.dto.RegistroEventoDto;
 import com.zapaticosCorp.PagEventos.evento.model.Evento;
+import com.zapaticosCorp.PagEventos.evento.model.OrganizadorPorEvento;
 import com.zapaticosCorp.PagEventos.evento.model.TipoEvento;
 import com.zapaticosCorp.PagEventos.evento.repository.EventoRepository;
+import com.zapaticosCorp.PagEventos.evento.repository.OrganizadorPorEventoRepository;
 import com.zapaticosCorp.PagEventos.evento.repository.TipoEventoRepository;
 import com.zapaticosCorp.PagEventos.evento.service.EventoService;
 import com.zapaticosCorp.PagEventos.usuario.dto.BasicResponseDto;
+import com.zapaticosCorp.PagEventos.usuario.model.Usuario;
+import com.zapaticosCorp.PagEventos.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +21,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +34,12 @@ public class EventoServiceImpl implements EventoService {
     @Autowired
     private TipoEventoRepository tipoEventoRepository;
 
+    @Autowired
+    private OrganizadorPorEventoRepository organizadorPorEventoRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     @Override
     public EventoCantResponseDto cantEventos() {
         Long cantidad = eventoRepository.count();
@@ -39,7 +49,7 @@ public class EventoServiceImpl implements EventoService {
     @Override
     public Page<EventoResponseDto> paginarEventos(Integer pagina, Integer nElementos) {
         Pageable pageable = PageRequest.of(pagina-1, nElementos);
-        Page<Evento> eventosPage = eventoRepository.findAll(pageable);
+        Page<Evento> eventosPage = eventoRepository.findAllByActivoTrue(pageable);
         return eventosPage.map(this::convertirADto);
     }
 
@@ -93,12 +103,48 @@ public class EventoServiceImpl implements EventoService {
                 dto.getFechaEvento(),
                 dto.getHoraEvento(),
                 dto.getHoraFinEvento(),
-                dto.getRutaImgEvento());
+                dto.getRutaImgEvento(),
+                true);
 
         eventoRepository.save(evento);
 
+        Optional<Usuario> usuario = usuarioRepository.findById(dto.getIdUsuario());
+
+        organizadorPorEventoRepository.save(new OrganizadorPorEvento(evento, usuario.get()));
+
         return new BasicResponseDto(true, "El evento " + evento.getNombreEvento() + " ha sido creado con éxito.");
     }
+
+    @Override
+    public BasicResponseDto actualizarEvento(ActualizarEventoDto dto) {
+        try {
+            Evento evento = eventoRepository.findById(dto.getIdEvento())
+                    .orElse(null);
+
+            if (evento == null) {
+                return new BasicResponseDto(false, "El evento con ID " + dto.getIdEvento() + " no fue encontrado.");
+            }
+
+            if (dto.getNombreEvento() != null) {
+                evento.setNombreEvento(dto.getNombreEvento());
+            }
+
+            if (dto.getLugarEvento() != null) {
+                evento.setLugarEvento(dto.getLugarEvento());
+            }
+
+            if (dto.getRutaImgEvento() != null) {
+                evento.setRutaImgEvento(dto.getRutaImgEvento());
+            }
+
+            eventoRepository.save(evento);
+            return new BasicResponseDto(true, "El evento ha sido actualizado con éxito.");
+
+        } catch (Exception e) {
+            return new BasicResponseDto(false, "Ocurrió un error al actualizar el evento: " + e.getMessage());
+        }
+    }
+
 
 
     private Optional<TipoEvento> existTipoEvento(RegistroEventoDto dto) {

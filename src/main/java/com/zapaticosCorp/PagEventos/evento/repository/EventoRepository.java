@@ -2,6 +2,8 @@ package com.zapaticosCorp.PagEventos.evento.repository;
 
 import com.zapaticosCorp.PagEventos.evento.model.Evento;
 import com.zapaticosCorp.PagEventos.usuario.model.Usuario;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +19,5 @@ public interface EventoRepository extends JpaRepository<Evento, Integer> {
     boolean existsByLugarEventoAndFechaEventoAndHoraEvento(String lugarEvento, LocalDate fechaEvento, LocalTime horaEvento);
     List<Evento> findByLugarEventoAndFechaEvento(String lugarEvento, LocalDate fechaEvento);
 
+    Page<Evento> findAllByActivoTrue(Pageable pageable);
 }

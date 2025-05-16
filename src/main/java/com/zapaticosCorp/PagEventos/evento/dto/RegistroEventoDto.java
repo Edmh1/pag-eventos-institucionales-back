@@ -12,8 +12,9 @@ public class RegistroEventoDto {
     private LocalTime horaEvento;
     private LocalTime horaFinEvento;
     private String rutaImgEvento;
+    private Integer idUsuario;
 
-    public RegistroEventoDto(Integer idTipoEvento, String nombreEvento, String lugarEvento, LocalDate fechaEvento, LocalTime horaEvento, LocalTime horaFinEvento, String rutaImgEvento) {
+    public RegistroEventoDto(Integer idTipoEvento, String nombreEvento, String lugarEvento, LocalDate fechaEvento, LocalTime horaEvento, LocalTime horaFinEvento, String rutaImgEvento, Integer idUsuario) {
         this.idTipoEvento = idTipoEvento;
         this.nombreEvento = nombreEvento;
         this.lugarEvento = lugarEvento;
@@ -21,6 +22,15 @@ public class RegistroEventoDto {
         this.horaEvento = horaEvento;
         this.horaFinEvento = horaFinEvento;
         this.rutaImgEvento = rutaImgEvento;
+        this.idUsuario = idUsuario;
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public Integer getIdTipoEvento() {

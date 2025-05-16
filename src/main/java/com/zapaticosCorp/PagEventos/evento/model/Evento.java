@@ -34,9 +34,12 @@ public class Evento {
     @Column
     private String rutaImgEvento;
 
+    @Column
+    private Boolean activo;
+
     public Evento(){}
 
-    public Evento(TipoEvento idTipoEvento, String nombreEvento, String lugarEvento, LocalDate fechaEvento, LocalTime horaEvento, LocalTime horaFinEvento, String rutaImgEvento) {
+    public Evento(TipoEvento idTipoEvento, String nombreEvento, String lugarEvento, LocalDate fechaEvento, LocalTime horaEvento, LocalTime horaFinEvento, String rutaImgEvento, Boolean activo) {
         this.idTipoEvento = idTipoEvento;
         this.nombreEvento = nombreEvento;
         this.lugarEvento = lugarEvento;
@@ -44,6 +47,15 @@ public class Evento {
         this.horaEvento = horaEvento;
         this.horaFinEvento = horaFinEvento;
         this.rutaImgEvento = rutaImgEvento;
+        this.activo = activo;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
     public Integer getIdEvento() {
