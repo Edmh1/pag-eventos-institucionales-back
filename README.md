@@ -13,7 +13,7 @@ Este proyecto es el backend de una aplicación web para la gestión de eventos i
 - Swagger (OpenAPI 3)
 - Maven
 - CORS habilitado
-- Arquitectura MVC organizada por servicios
+- Arquitectura MVC organizada por capas
 
 ---
 
@@ -22,7 +22,6 @@ Este proyecto es el backend de una aplicación web para la gestión de eventos i
 - ✅ Registro y login de usuarios (funcionarios y estudiantes)
 - ✅ Gestión de eventos institucionales (crear, editar, eliminar, listar)
 - ✅ Asignación de roles (funcionario, estudiante, administrador de eventos)
-- ✅ Comentarios y likes en eventos
 - ✅ Control de acceso según rol
 - ✅ Conexión segura entre frontend y backend mediante configuración CORS
 
@@ -30,7 +29,7 @@ Este proyecto es el backend de una aplicación web para la gestión de eventos i
 
 ## 🗂️ Estructura del proyecto
 
-El backend sigue una arquitectura basada en MVC organizada por dominio y servicio:
+El backend sigue una arquitectura basada en MVC organizada:
 <br>
 src/nombre_servicio
 <br>
