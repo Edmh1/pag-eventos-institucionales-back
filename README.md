@@ -51,7 +51,7 @@ src/nombre_servicio
 El proyecto incluye documentación automática de la API generada con Swagger.
 
 📄 Accede a la documentación en:  
-(en desarrollo)
+https://pag-eventos-institucionales-back.onrender.com/swagger-ui/index.html#/
 
 ---
 
