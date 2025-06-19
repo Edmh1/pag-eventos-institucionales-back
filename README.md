@@ -24,7 +24,7 @@ Este proyecto es el backend de una aplicación web para la gestión de eventos i
 - ✅ Asignación de roles (funcionario, estudiante, administrador de eventos)
 - ✅ Control de acceso según rol
 - ✅ Conexión segura entre frontend y backend mediante configuración CORS
-
+- ✅ Envío automático de correo de despedida al eliminar una cuenta
 ---
 
 ## 🗂️ Estructura del proyecto
@@ -71,3 +71,9 @@ El sistema diferencia roles mediante su relación en base de datos:
 - **Administrador de eventos** (subtipo de funcionario con permisos especiales)
 
 Solo los administradores de eventos pueden crear o modificar eventos.
+
+## ✉️ Notificación por correo
+
+Cuando un usuario es eliminado del sistema, se le envía automáticamente un **correo electrónico de despedida** con un mensaje personalizado ("Lo sentimos por eliminar tu cuenta").
+
+Esta funcionalidad muestra cómo integrar servicios externos como SMTP en el backend para mejorar la experiencia del usuario.
