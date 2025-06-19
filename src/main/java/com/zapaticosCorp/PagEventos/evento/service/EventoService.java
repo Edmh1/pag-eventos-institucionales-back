@@ -18,4 +18,6 @@ public interface EventoService {
     BasicResponseDto actualizarEvento(ActualizarEventoDto evento);
 
     Page<EventoResponseDto> paginarEventosPorUsuario(Integer pagina, Integer nElementos, Integer idUsuario);
+
+    BasicResponseDto eliminarEvento(Integer idEvento);
 }

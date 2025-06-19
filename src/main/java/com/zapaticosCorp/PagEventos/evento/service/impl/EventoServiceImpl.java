@@ -73,6 +73,28 @@ public class EventoServiceImpl implements EventoService {
         return new PageImpl<>(eventosPaginados, pageable, eventosFiltrados.size());
     }
 
+    @Override
+    public BasicResponseDto eliminarEvento(Integer idEvento) {
+        if(idEvento == null) {
+            return new BasicResponseDto(false, "idEvento no válido");
+        }
+
+        Optional<Evento> eventoOpt = eventoRepository.findById(idEvento);
+
+        if (eventoOpt.isEmpty()) {
+            return new BasicResponseDto(false, "Evento no encontrado en el sistema");
+        }
+
+        Evento evento = eventoOpt.get(); // Obtener el objeto real
+        if(!evento.getActivo()){
+            return new BasicResponseDto(false, "Evento no encontrado en el sistema");
+        }
+
+        evento.setActivo(false);
+        eventoRepository.save(evento);
+
+        return new BasicResponseDto(true, "El Evento ha sido eliminado correctamente");
+    }
 
     private EventoResponseDto convertirADto(Evento evento) {
         return new EventoResponseDto(
